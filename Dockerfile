@@ -1,5 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 
+ARG TENANT_BE_URL
+
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
@@ -23,6 +25,10 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Set environment variables for Next.js
+
+ENV TENANT_BE_URL=$TENANT_BE_URL
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
