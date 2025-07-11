@@ -6,6 +6,7 @@ import { type Config } from '@mystiker123/config-schema';
 
 export default function Home() {
     const cfg = useConfig();
+    const base = process.env.TENANT_BE_URL;
 
     let loc: Intl.Locale | undefined = undefined;
     if(cfg.address?.country) {
@@ -49,6 +50,15 @@ export default function Home() {
                 <h2 className={styles.aboutHeader}>About us</h2>
                 <p>{cfg.about}</p>
             </div>
+            <footer>
+                <button className='crash' onClick={() => {
+                    fetch(`${base}/crash`)
+                        .then(() => {alert("Crash triggered")})
+                        .catch(() => alert("Backend not reachable"))
+                }}>
+                    Crash
+                </button>
+            </footer>
         </main>
     )
 }
