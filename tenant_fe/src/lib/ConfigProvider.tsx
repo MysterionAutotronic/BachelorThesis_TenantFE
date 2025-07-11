@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useContext } from 'react';
-import { type Config } from '@mystiker123/config-schema';
+import  type { Config } from '@mystiker123/config-schema';
 
 const ConfigCtx = createContext<Config | null>(null);
 
