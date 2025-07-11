@@ -2,7 +2,6 @@
 
 import { useConfig } from '@/lib/ConfigProvider';
 import styles from './page.module.css';
-import { type Config } from '@mystiker123/config-schema';
 
 export default function Home() {
     const cfg = useConfig();
