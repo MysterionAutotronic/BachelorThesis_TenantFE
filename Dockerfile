@@ -22,6 +22,8 @@ RUN \
 
 # Rebuild the source code only when needed
 FROM base AS builder
+ARG TENANT_BE_URL
+ENV NEXT_PUBLIC_TENANT_BE_URL=$TENANT_BE_URL
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
