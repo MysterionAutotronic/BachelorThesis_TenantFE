@@ -5,7 +5,6 @@ import styles from './page.module.css';
 
 export default function Home() {
     const cfg = useConfig();
-    const base = process.env.TENANT_BE_URL;
 
     let loc: Intl.Locale | undefined = undefined;
     if(cfg.address?.country) {
@@ -51,7 +50,7 @@ export default function Home() {
             </div>
             <footer>
                 <button className='crash' onClick={() => {
-                    fetch(`${base}/crash`)
+                    fetch(`/crash`)
                         .then(() => {alert("Crash triggered")})
                         .catch(() => alert("Backend not reachable"))
                 }}>
