@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { ConfigSchema } from '@mystiker123/config-schema';
 import ConfigProvider from '@/lib/ConfigProvider';
 
+export const dynamic = 'force-dynamic'; // Force dynamic rendering to avoid fetching config at build time
+
 async function loadConfig() {
     const res  = await fetch(`/config`, { next: { revalidate: 60*10 } });
     if (!res.ok) throw new Error('Failed to load config');
