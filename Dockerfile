@@ -1,7 +1,5 @@
 # syntax=docker.io/docker/dockerfile:1
 
-ARG TENANT_BE_URL
-
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
@@ -22,16 +20,15 @@ RUN \
 
 # Rebuild the source code only when needed
 FROM base AS builder
-
-ARG CONFIG_ENDPOINT
-ARG CRASH_ENDPOINT
-
-ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
-ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
-
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Build ARG for CONFIG_ENDPOINT and CRASH_ENDPOINT
+ARG CONFIG_ENDPOINT
+ARG CRASH_ENDPOINT
+ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
+ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -47,15 +44,9 @@ RUN \
 
 # Production image, copy all the files and run next
 FROM base AS runner
-
-ARG CONFIG_ENDPOINT
-ARG CRASH_ENDPOINT
+WORKDIR /app
 
 ENV NODE_ENV=production
-ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
-ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
-
-WORKDIR /app
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
