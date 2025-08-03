@@ -23,14 +23,11 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 ARG TENANT_BE_URL
-ENV NEXT_PUBLIC_TENANT_BE_URL=$TENANT_BE_URL
+ENV NEXT_PUBLIC_CONFIG_ENDPOINT=${TENANT_BE_URL}/config
+ENV NEXT_PUBLIC_CRASH_ENDPOINT=${TENANT_BE_URL}/crash
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Set environment variables for Next.js
-
-ENV TENANT_BE_URL=$TENANT_BE_URL
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
