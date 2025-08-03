@@ -29,6 +29,8 @@ ARG CONFIG_ENDPOINT
 ARG CRASH_ENDPOINT
 ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
 ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
+ENV NEXT_PUBLIC_CONFIG_ENDPOINT=$CONFIG_ENDPOINT
+ENV NEXT_PUBLIC_CRASH_ENDPOINT=$CRASH_ENDPOINT
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -45,13 +47,6 @@ RUN \
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
-# ENV
-ARG CONFIG_ENDPOINT
-ARG CRASH_ENDPOINT
-
-ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
-ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
 
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
