@@ -46,6 +46,13 @@ RUN \
 FROM base AS runner
 WORKDIR /app
 
+# ENV
+ARG CONFIG_ENDPOINT
+ARG CRASH_ENDPOINT
+
+ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
+ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
+
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED=1
