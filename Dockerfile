@@ -26,8 +26,8 @@ FROM base AS builder
 ARG CONFIG_ENDPOINT
 ARG CRASH_ENDPOINT
 
-ENV NEXT_PUBLIC_CONFIG_ENDPOINT=$CONFIG_ENDPOINT
-ENV NEXT_PUBLIC_CRASH_ENDPOINT=$CRASH_ENDPOINT
+ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
+ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -47,9 +47,15 @@ RUN \
 
 # Production image, copy all the files and run next
 FROM base AS runner
-WORKDIR /app
+
+ARG CONFIG_ENDPOINT
+ARG CRASH_ENDPOINT
 
 ENV NODE_ENV=production
+ENV CONFIG_ENDPOINT=$CONFIG_ENDPOINT
+ENV CRASH_ENDPOINT=$CRASH_ENDPOINT
+
+WORKDIR /app
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
