@@ -6,7 +6,9 @@ import ConfigProvider from '@/lib/ConfigProvider';
 export const dynamic = 'force-dynamic'; // Force dynamic rendering to avoid fetching config at build time
 
 async function loadConfig() {
-    const res  = await fetch(`/api/config`, { next: { revalidate: 60*10 } });
+    const base = process.env.INTERNAL_BASE_URL || 'http://127.0.0.1:3000';
+    const url = new URL('/api/config', base).toString();  // <- absolute to proxy (server side component)
+    const res  = await fetch(url, { next: { revalidate: 60*10 } });
     if (!res.ok) throw new Error('Failed to load config');
     const json = await res.json();
     const parsed = ConfigSchema.parse(json);
