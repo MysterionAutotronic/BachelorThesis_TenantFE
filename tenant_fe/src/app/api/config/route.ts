@@ -1,6 +1,6 @@
 'use server'
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 if (!process.env.CONFIG_ENDPOINT) console.error('environment variable CONFIG_ENDPOINT not defined');
 const endpoint = process.env.CONFIG_ENDPOINT!;
