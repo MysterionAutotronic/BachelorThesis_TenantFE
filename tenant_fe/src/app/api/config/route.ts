@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 if (!process.env.CONFIG_ENDPOINT) console.error('environment variable CONFIG_ENDPOINT not defined');
 const endpoint = process.env.CONFIG_ENDPOINT!;
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const response = await fetch(endpoint, {
             method: 'GET'
