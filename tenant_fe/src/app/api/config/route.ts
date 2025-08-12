@@ -6,15 +6,9 @@ if (!process.env.CONFIG_ENDPOINT) console.error('environment variable CONFIG_END
 const endpoint = process.env.CONFIG_ENDPOINT!;
 
 export async function GET(req: NextRequest) {
-    const body = await req.json();
-
     try {
         const response = await fetch(endpoint, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'user': body.user
-            }
+            method: 'GET'
         });
         const data = await response.json();
         return new NextResponse(JSON.stringify(data), { status: response.status });
